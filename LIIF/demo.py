@@ -7,7 +7,7 @@ from torchvision import transforms
 
 import models
 from utils import make_coord
-from test import batched_predict
+from test_liif import batched_predict
 
 
 def run(img_path, model_path, output_path, resolution_width, resolution_height):
