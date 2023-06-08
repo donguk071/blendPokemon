@@ -34,7 +34,7 @@ from torch.optim.lr_scheduler import MultiStepLR
 import datasets
 import models
 import utils
-from test import eval_psnr
+from test_liif import eval_psnr
 
 
 def make_data_loader(spec, tag=''):

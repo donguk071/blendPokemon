@@ -14,7 +14,7 @@ def make_high_resolution(img_path, output_path, resolution_width, resolution_hei
 
     demo.run(img_path = img_path, 
              output_path = output_path, 
-             model_path = 'LIIF/edsr-baseline-liif.pth', 
+             model_path = '../LIIF/edsr-baseline-liif.pth', 
              resolution_width = resolution_width, 
              resolution_height = resolution_height)
 
