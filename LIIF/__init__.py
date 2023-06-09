@@ -1,3 +1,7 @@
+import sys
+
+sys.path.append("../LIIF")
+
 import demo
 import module_super_resolution
 import test_liif
