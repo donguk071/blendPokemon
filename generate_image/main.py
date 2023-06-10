@@ -54,7 +54,7 @@ def main(args: argparse.Namespace) -> None:
         outdir=os.path.join(output, "mat"),
     )
 
-    img_bg = cv.imread(save_base + ".png")
+    img_bg = cv.imread(os.path.join(output, "mat", f"{base}.png"))
 
     base = os.path.basename(args.img_fg)
     base = os.path.splitext(base)[0]
