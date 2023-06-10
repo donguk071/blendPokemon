@@ -1,8 +1,5 @@
 import sys
-sys.path.append("../MAT")
-sys.path.append("./MAT")
-sys.path.append("..")
 
-import generate_image
-import legacy
+sys.path.append("../MAT")
+
 import module_inpainting

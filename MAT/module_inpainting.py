@@ -3,7 +3,7 @@ import os
 
 
 def generate_images_ours(network_pkl = '../MAT/pretrained/Places_512.pkl'
-                         ,dpath = '../MAT/test_sets/images'
+                         , dpath = '../MAT/test_sets/images'
                          ,mpath = '../MAT/test_sets/masks'
                          ,outdir = '../MAT/mytest'):
     
@@ -18,4 +18,4 @@ def generate_images_ours(network_pkl = '../MAT/pretrained/Places_512.pkl'
         outdir=outdir
     )
     
-#generate_images_ours()
+# generate_images_ours()
