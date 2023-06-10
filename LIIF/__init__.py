@@ -1,6 +1,7 @@
 import sys
 
 sys.path.append("../LIIF")
+sys.path.append("./LIIF")
 
 import demo
 import module_super_resolution
