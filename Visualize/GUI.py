@@ -8,8 +8,9 @@ from tkinter import filedialog
 
 import sys
 import time
-sys.path.append("..")
 
+#시스템 변수 추가하고 import문 작성해 실행환경을 맞춰준다
+sys.path.append("..")
 import LIIF
 import MAT
 import SAM                    
@@ -23,7 +24,6 @@ LIIF_img_path = "./samples/LIIF_img"
 
 #SAM.generate_mask.generate_mask(image_path = "./samples/SAM_img/img_bg.png",sam_checkpoint = "../SAM/sam_vit_b_01ec64.pth",model_type= "vit_b" , device= "cpu")
 
-
 isclicked = False
 image_fin = None
 image_label = None
@@ -34,7 +34,6 @@ def handle_mouse_click(event):
     y = event.y
     isclicked = True
     print("Mouse position - X:", x, "Y:", y)
-  
 
 def handle_mouse_move(event):
     global isclicked, image_fin, image_label
@@ -42,18 +41,27 @@ def handle_mouse_move(event):
         x = event.x
         y = event.y
         print("Mouse position - X:", x, "Y:", y)
-         
+        
+        #리사이즈대신 superres으로 대체 후 전역변수로 한번 만 발생하도록 처리, 현재 테스트용 이미지로 작동중 genertare_image 폴더에서 CLI로 확인가능
+        
+        # LIIF.module_super_resolution.make_high_resolution(
+        #     img_path="./samples/MAT_img/inpainted_bg.png",
+        #     output_path=filename,
+        #     800,
+        #     800,
+        # )
+
         image_path_b = "./samples/MAT_img/inpainted_bg.png"
         image_bg = cv2.imread(image_path_b ,cv2.IMREAD_COLOR)
-        image_bg = cv2.resize(image_bg, dsize=(800,800))#리사이즈대신 superres
-        
+        image_bg = cv2.resize(image_bg, dsize=(800,800))
+        #리사이즈대신 superres으로 대체 후 전역변수로 한번 만 발생하도록 처리, 현재 테스트용 이미지로 작동중 genertare_image 폴더에서 CLI로 확인가능 
         image_path_f = "./samples/SAM_img/charactor/img_fg.png"
         image_fg = cv2.imread(image_path_f ,cv2.IMREAD_COLOR)
-        image_fg = cv2.resize(image_fg, dsize=(800,800))#리사이즈대신 superres
-        
+        image_fg = cv2.resize(image_fg, dsize=(800,800))
+        #리사이즈대신 superres으로 대체 후 전역변수로 한번 만 발생하도록 처리, 현재 테스트용 이미지로 작동중 genertare_image 폴더에서 CLI로 확인가능
         image_path_m = "./samples/SAM_img/mask/mask.png"
         image_m = cv2.imread(image_path_m, cv2.IMREAD_COLOR)
-        image_m = cv2.resize(image_m, dsize=(800,800))#리사이즈대신 superres
+        image_m = cv2.resize(image_m, dsize=(800,800))
 
         h, w = image_fg.shape[:2]
         
@@ -79,7 +87,6 @@ def handle_mouse_move(event):
         image_label.configure(image=image_fin)
         image_label.image = image_fin
 
-
         # time.sleep(1)
 
 
@@ -100,7 +107,7 @@ def open_image1():
     
     cv2.imwrite(input_backImg_path + "/image_bg.png", image1)
     
-    # 이미지를 Tkinter에서 사용할 수 있는 형식으로 변환\
+    # 이미지를 Tkinter에서 사용할 수 있는 형식으로 변환
     image1  = cv2.resize(image1 , (256, 256))
     image1  = cv2.cvtColor(image1 , cv2.COLOR_BGR2RGB)
     image1  = Image.fromarray(image1)
@@ -152,12 +159,14 @@ def open_image2():
     widget2_0.image = image_tk 
 
 def inpaint_image() : 
-    # MAT.module_inpainting.generate_images_ours(
+    # 예제 이미지 사용중 아래 주석후 160 line 수정 시 결과 확인가능  gpu 설정 없으면 에러 발생 유의
+    # MAT.module_inpainting.generate_images_ours( 
     #     dpath = SAM_img_path + "/origin", #sam 저장경로로 수정하던지 sam 결과가 저기 저장되도록
     #     mpath = SAM_img_path + "/mask",
     #     outdir= MAT_img_path)
+    
     global image_label
-    image_path = "./samples/SAM_img/img_bg.png"
+    image_path = "./samples/SAM_img/img_bg.png" #테스트용 이미지 MAT을 통한 경로 MAT_img_path 로 경로 수정으로 사용가능
     image = Image.open(image_path)
     image_tk = ImageTk.PhotoImage(image)
     image_label = tk.Label(col1_frame, image=image_tk)
@@ -176,14 +185,6 @@ def inpaint_image() :
 
 def show_result():
 
-    # image_path = "./samples/SAM_img/img_bg.png"
-    # image = Image.open(image_path)
-    # image_tk = ImageTk.PhotoImage(image)
-    # image_label = tk.Label(col1_frame, image=image_tk)
-    # image_label.bind("<Motion>", handle_mouse_move)
-    # image_label.bind("<Button-1>", handle_mouse_click)
-    # image_label.bind("<ButtonRelease-1>", handle_mouse_release)
-    # image_label.pack()
     global image_label
 
     image_path = MAT_img_path + "/inpainted_bg.png"
